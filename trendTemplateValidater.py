@@ -1,4 +1,5 @@
 import yfinance as yf
+from datetime import datetime
 
 stocks = [
     '0001',
@@ -71,7 +72,7 @@ def validate(code):
 fo = open('out.txt', 'ab+')
 for stock in stocks:
     try:
-        print(stock)
+        print(str(datetime.now()) + ': ' + stock)
         if validate(stock):
             fo.write(stock.encode())
             fo.write('\n'.encode())
