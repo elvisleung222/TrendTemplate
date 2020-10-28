@@ -2,18 +2,7 @@ import yfinance as yf
 from datetime import datetime
 
 stocks = [
-    '0001',
-    '0002',
-    '0003',
-    '0004',
-    '0005',
-    '0006',
-    '0007',
-    '0008',
-    '0009',
-    '0010',
-    '0011',
-    '0700'
+    '9998'
 ]
 
 
@@ -52,7 +41,10 @@ def validate(code):
     ma_150 = history['Close'][-150:].mean()
     ma_200 = history['Close'][-200:].mean()
     ma_200_series = history['Close'].rolling(window=200).mean().dropna()[-20:]
-    ma_200_slope = (ma_200_series[-1] - ma_200_series[1]) / len(ma_200_series)
+    if len(ma_200_series) > 1:
+        ma_200_slope = (ma_200_series[-1] - ma_200_series[1]) / len(ma_200_series)
+    else:
+        ma_200_slope = 1
     rsi_14 = rsi(history)[-1]
 
     conditions = [
