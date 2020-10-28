@@ -70,6 +70,7 @@ def validate(code):
 
 
 fo = open('out.txt', 'ab+')
+start = datetime.now()
 for stock in stocks:
     try:
         print(str(datetime.now()) + ': ' + stock)
@@ -78,4 +79,6 @@ for stock in stocks:
             fo.write('\n'.encode())
     except Exception as e:
         print(e)
+print('Start time\t: ' + str(start))
+print('End time\t: ' + str(datetime.now()))
 fo.close()
