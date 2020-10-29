@@ -1,13 +1,20 @@
 import yfinance as yf
 from datetime import datetime
+import re
 
 stocks = [
-    '9998'
+    'NIO'
 ]
 
 
 def codify(number):
-    return str(number) + '.HK'
+    def is_digits(x):
+        return not (re.search(r'([0-9]*)', x).group() == '')
+
+    if is_digits(number):
+        return str(number) + '.HK'
+    else:
+        return number
 
 
 def rsi(stock, column="Close", period=14):
