@@ -1,13 +1,25 @@
 import yfinance as yf
 from datetime import datetime
 import re
+import xlsxwriter
 
 stocks = [
-    'NIO'
+'0028',
+'0056',
+'0259',
+'0520',
 ]
 
 result = []
 
+def create_xlsx_file(file_path: str, headers: dict, items: list):
+    with xlsxwriter.Workbook(file_path) as workbook:
+        worksheet = workbook.add_worksheet()
+        worksheet.write_row(row=0, col=0, data=headers.values())
+        header_keys = list(headers.keys())
+        for index, item in enumerate(items):
+            row = map(lambda field_id: item.get(field_id, ''), header_keys)
+            worksheet.write_row(row=index + 1, col=0, data=row)
 
 def codify(number):
     def is_digits(x):
@@ -105,3 +117,22 @@ for stock in stocks:
 print('Start time\t: ' + str(start))
 print('End time\t: ' + str(datetime.now()))
 fo.close()
+
+# Export to excel
+headers = {
+    'code': 'Code',
+    'name': 'Name',
+    'market_capital': 'Market Cap',
+    'volume': 'Volume',
+    'close': 'Close Price',
+    'week_low_52': '52 Weeks Low',
+    'week_high_52': '52 Weeks High',
+    'ma_50': '50 MA',
+    'ma_150': '150 MA',
+    'ma_200': '200 MA',
+    'ma_200_slope': 'Slope of 200 MA',
+    'rsi_14': 'RSI',
+    'as_of': 'Retrieved at',
+}
+
+create_xlsx_file('Trend-Template-Result-'+str(start.date())+'.xlsx', headers, result)
