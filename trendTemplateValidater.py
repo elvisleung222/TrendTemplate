@@ -6,6 +6,8 @@ stocks = [
     'NIO'
 ]
 
+result = []
+
 
 def codify(number):
     def is_digits(x):
@@ -65,17 +67,39 @@ def validate(code):
         rsi_14 > 70
     ]
 
-    return all(conditions)
+    if all(conditions):
+        info = ticker.get_info()
+        output = {
+            'code': code,
+            'name': info['longName'],
+            'market_capital': info['marketCap'],
+            'volume': info['volume'],
+            'close': close,
+            'week_low_52': week_low_52,
+            'week_high_52': week_high_52,
+            'ma_50': ma_50,
+            'ma_150': ma_150,
+            'ma_200': ma_200,
+            'ma_200_slope': ma_200_slope,
+            'rsi_14': rsi_14,
+            'as_of': str(history.index.max().date())
+        }
+
+        result.append(output)
+        return True, output
+    return False, None
 
 
-fo = open('out.txt', 'ab+')
 start = datetime.now()
+fo = open('Trend-Template-Result-'+str(start.date())+'.json', 'ab+')
 for stock in stocks:
     try:
+        validated, output = validate(stock)
         print(str(datetime.now()) + ': ' + stock)
-        if validate(stock):
-            fo.write(stock.encode())
-            fo.write('\n'.encode())
+        if validated:
+            # fo.write(stock.encode())
+            fo.write(str(output).encode())
+            fo.write(',\n'.encode())
     except Exception as e:
         print(e)
 print('Start time\t: ' + str(start))
