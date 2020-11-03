@@ -4,13 +4,14 @@ import re
 import xlsxwriter
 
 stocks = [
-'0028',
-'0056',
-'0259',
-'0520',
+    '0028',
+    '0056',
+    '0259',
+    '0520',
 ]
 
 result = []
+
 
 def create_xlsx_file(file_path: str, headers: dict, items: list):
     with xlsxwriter.Workbook(file_path) as workbook:
@@ -20,6 +21,7 @@ def create_xlsx_file(file_path: str, headers: dict, items: list):
         for index, item in enumerate(items):
             row = map(lambda field_id: item.get(field_id, ''), header_keys)
             worksheet.write_row(row=index + 1, col=0, data=row)
+
 
 def codify(number):
     def is_digits(x):
@@ -103,7 +105,7 @@ def validate(code):
 
 
 start = datetime.now()
-fo = open('Trend-Template-Result-'+str(start.date())+'.json', 'ab+')
+fo = open('Trend-Template-Result-' + str(start.date()) + '.json', 'ab+')
 for stock in stocks:
     try:
         validated, output = validate(stock)
@@ -135,4 +137,4 @@ headers = {
     'as_of': 'Retrieved at',
 }
 
-create_xlsx_file('Trend-Template-Result-'+str(start.date())+'.xlsx', headers, result)
+create_xlsx_file('Trend-Template-Result-' + str(start.date()) + '.xlsx', headers, result)
