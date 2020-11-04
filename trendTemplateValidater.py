@@ -5,6 +5,7 @@ import xlsxwriter
 
 stocks = [
     '0056',
+    '1211'
 ]
 
 result = []
@@ -77,7 +78,7 @@ def validate(code):
         close >= 1.3 * week_low_52,
         close * 1.25 >= week_high_52,
         rsi_14 > 70,
-        (history.index.max().date() - today) <= 3  # no trading data for more than 3 days
+        abs((history.index.max().date() - today).days) <= 7  # no trading data for more than 7 days
     ]
 
     if all(conditions):
