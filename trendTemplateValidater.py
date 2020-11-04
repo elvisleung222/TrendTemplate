@@ -4,10 +4,7 @@ import re
 import xlsxwriter
 
 stocks = [
-    '4338',
-    '4332',
-    '4336',
-    '1211',
+    '0056',
 ]
 
 result = []
@@ -55,6 +52,7 @@ def rsi(stock, column="Close", period=14):
 
 
 def validate(code):
+    today = datetime.today().date()
     ticker = yf.Ticker(codify(code))
     history = ticker.history(period='1y')
     close = history['Close'][-1]
@@ -78,14 +76,12 @@ def validate(code):
         close > ma_50,
         close >= 1.3 * week_low_52,
         close * 1.25 >= week_high_52,
-        rsi_14 > 70
+        rsi_14 > 70,
+        (history.index.max().date() - today) <= 3  # no trading data for more than 3 days
     ]
 
     if all(conditions):
         info = ticker.get_info()
-
-        if info['tradeable'] is not True:
-            return False, None
 
         output = {
             'code': code,
