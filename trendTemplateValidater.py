@@ -4,10 +4,10 @@ import re
 import xlsxwriter
 
 stocks = [
-    '0028',
-    '0056',
-    '0259',
-    '0520',
+    '4338',
+    '4332',
+    '4336',
+    '1211',
 ]
 
 result = []
@@ -83,6 +83,10 @@ def validate(code):
 
     if all(conditions):
         info = ticker.get_info()
+
+        if info['tradeable'] is not True:
+            return False, None
+
         output = {
             'code': code,
             'name': info['longName'],
