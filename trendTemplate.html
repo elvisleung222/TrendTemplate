@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trend Template</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+</head>
+<body>
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>code</th>
+                <th>name</th>
+                <th>market_capital</th>
+                <th>volume</th>
+                <th>close</th>
+                <th>week_low_52</th>
+                <th>week_high_52</th>
+                <th>ma_50</th>
+                <th>ma_150</th>
+                <th>ma_200</th>
+                <th>ma_200_slope</th>
+                <th>rsi_14</th>
+                <th>as_of</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+<script>
+    $(document).ready( function () {
+        var t = $('#table_id').DataTable({
+            // "ajax": "Trend-Template-Result-2020-11-29.json",
+            "data": [{"code": "0028", "name": "Tian An China Investments Company Limited", "market_capital": 7113080832, "volume": 97000, "close": "4.740", "week_low_52": "2.277", "week_high_52": "4.790", "ma_50": "4.256", "ma_150": "3.873", "ma_200": "3.636", "ma_200_slope": "0.006", "rsi_14": "78.606", "as_of": "2020-11-27"}, {"code": "0174", "name": "Gemini Investments (Holdings) Limited", "market_capital": 695140608, "volume": 86000, "close": "1.100", "week_low_52": "0.390", "week_high_52": "1.180", "ma_50": "0.644", "ma_150": "0.549", "ma_200": "0.545", "ma_200_slope": "0.002", "rsi_14": "87.239", "as_of": "2020-11-27"}, {"code": "0186", "name": "Nimble Holdings Company Limited", "market_capital": 4723317760, "volume": 130000, "close": "0.860", "week_low_52": "0.320", "week_high_52": "0.950", "ma_50": "0.640", "ma_150": "0.557", "ma_200": "0.540", "ma_200_slope": "0.001", "rsi_14": "76.128", "as_of": "2020-11-27"}, {"code": "0235", "name": "China Strategic Holdings Limited", "market_capital": 2310327296, "volume": 175774111, "close": "0.136", "week_low_52": "0.020", "week_high_52": "0.148", "ma_50": "0.078", "ma_150": "0.058", "ma_200": "0.050", "ma_200_slope": "0.000", "rsi_14": "80.435", "as_of": "2020-11-27"}, {"code": "0240", "name": "Build King Holdings Limited", "market_capital": 1266717696, "volume": 1016800, "close": "1.020", "week_low_52": "0.650", "week_high_52": "1.100", "ma_50": "0.851", "ma_150": "0.808", "ma_200": "0.798", "ma_200_slope": "0.000", "rsi_14": "71.242", "as_of": "2020-11-27"}, {"code": "0305", "name": "Wuling Motors Holdings Limited", "market_capital": 3413427712, "volume": 100096562, "close": "1.110", "week_low_52": "0.169", "week_high_52": "1.260", "ma_50": "0.489", "ma_150": "0.392", "ma_200": "0.352", "ma_200_slope": "0.002", "rsi_14": "91.891", "as_of": "2020-11-27"}, {"code": "0316", "name": "Orient Overseas (International) Limited", "market_capital": 37015658496, "volume": 100500, "close": "59.150", "week_low_52": "28.162", "week_high_52": "69.950", "ma_50": "39.303", "ma_150": "35.081", "ma_200": "34.129", "ma_200_slope": "0.066", "rsi_14": "71.083", "as_of": "2020-11-27"}, {"code": "0354", "name": "Chinasoft International Limited", "market_capital": 19927707648, "volume": 28556491, "close": "8.060", "week_low_52": "3.286", "week_high_52": "8.290", "ma_50": "6.296", "ma_150": "5.366", "ma_200": "5.145", "ma_200_slope": "0.010", "rsi_14": "73.913", "as_of": "2020-11-27"}],
+            "columns": [
+                {"data": "code"},
+                {"data": "name"},
+                {"data": "market_capital"},
+                {"data": "volume"},
+                {"data": "close"},
+                {"data": "week_low_52"},
+                {"data": "week_high_52"},
+                {"data": "ma_50"},
+                {"data": "ma_150"},
+                {"data": "ma_200"},
+                {"data": "ma_200_slope"},
+                {"data": "rsi_14"},
+                {"data": "as_of"}
+            ]
+        });
+
+    } );
+</script>
+</html>
