@@ -3,7 +3,7 @@ from datetime import datetime
 import re
 import xlsxwriter
 import json
-import os
+import sys
 
 stocks = [
     '0001',
@@ -2562,9 +2562,10 @@ stocks = [
     # '9999'
 ]
 
-home_dir = os.environ.get('TREND_TEMPLATE_DIR')
-if home_dir is None or home_dir == '':
-    print("Error: Please set env variable TREND_TEMPLATE_DIR")
+try:
+    home_dir = sys.argv[1]
+except Exception as e:
+    print("Please provide home directory as input option")
 
 result = []
 
@@ -2676,11 +2677,9 @@ print('Start time\t: ' + str(start))
 print('End time\t: ' + str(datetime.now()))
 fo1 = open(home_dir+'static/Trend-Template-Result' + '.json', 'w+')
 fo1.write(json.dumps(data))
-print(os.path.realpath(fo1.name))
 fo1.close()
 fo2 = open(home_dir+'history/Trend-Template-Result-' + str(start.date()) + '.json', 'w+')
 fo2.write(json.dumps(data))
-print(os.path.realpath(fo2.name))
 fo2.close()
 
 # Export to excel
