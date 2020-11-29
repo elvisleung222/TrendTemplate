@@ -26,6 +26,12 @@ Run a python script
 0 0 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" >> /var/log/pythonLog2
 ```
 
+Logs Location: `/var/log/pythonLog2`
+
+#### **Remark:**
+- All paths in crontab need to be absolute path.
+
+
 
 
 TODO:
