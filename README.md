@@ -5,14 +5,16 @@ NYSE: to be tested
 
 ### Kill and Start Web Server
 ```shell script
-pkill flask & nohup flask run --host=0.0.0.0 &
+pkill flask
+nohup flask run --host=0.0.0.0 &
 ```
 
 ### Scheduled Job
 - Generate a new list at 0000 eveyday
   - Argument 1: Project home directory, end with "/"
+  - Argument 2: Exchange: NYSE / HKEX
 ```shell script
-python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/"
+sudo python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "NYSE"
 ```
 
 ### Cron Tab
@@ -23,7 +25,8 @@ sudo vim /etc/crontab
 
 Run a python script
 ```shell script
-0 0 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" >> /var/log/pythonLog2
+0 0 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "HKEX" >> /var/log/TrendTemplateLogHKEX
+0 6 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "NYSE" >> /var/log/TrendTemplateLogNYSE
 ```
 
 Logs Location: `/var/log/pythonLog2`
