@@ -3,6 +3,7 @@ from datetime import datetime
 import re
 import xlsxwriter
 import json
+import os
 
 stocks = [
     '0001',
@@ -2672,9 +2673,11 @@ print('Start time\t: ' + str(start))
 print('End time\t: ' + str(datetime.now()))
 fo1 = open('./static/Trend-Template-Result' + '.json', 'w+')
 fo1.write(json.dumps(data))
+print(fo1.name)
 fo1.close()
 fo2 = open('./history/Trend-Template-Result-' + str(start.date()) + '.json', 'w+')
 fo2.write(json.dumps(data))
+print(fo2.name)
 fo2.close()
 
 # Export to excel
