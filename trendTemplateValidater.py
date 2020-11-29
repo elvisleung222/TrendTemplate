@@ -5,6 +5,7 @@ import xlsxwriter
 import json
 import os
 
+print("started.")
 stocks = [
     '0001',
     '0002',
@@ -2673,11 +2674,11 @@ print('Start time\t: ' + str(start))
 print('End time\t: ' + str(datetime.now()))
 fo1 = open('./static/Trend-Template-Result' + '.json', 'w+')
 fo1.write(json.dumps(data))
-print(fo1.name)
+print(os.path.realpath(fo1.name))
 fo1.close()
 fo2 = open('./history/Trend-Template-Result-' + str(start.date()) + '.json', 'w+')
 fo2.write(json.dumps(data))
-print(fo2.name)
+print(os.path.realpath(fo2.name))
 fo2.close()
 
 # Export to excel
@@ -2698,3 +2699,4 @@ headers = {
 }
 
 create_xlsx_file('./history/Trend-Template-Result-' + str(start.date()) + '.xlsx', headers, result)
+print("finished.")
