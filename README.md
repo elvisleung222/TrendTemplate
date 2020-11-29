@@ -32,8 +32,6 @@ Logs Location: `/var/log/pythonLog2`
 - All paths in crontab need to be absolute path.
 
 
-
-
 TODO:
 - [ ] HKEX, NYSE lists are input as python option
 - [ ] Datatable supports both HKEX and NYSE
