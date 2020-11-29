@@ -2670,10 +2670,10 @@ for stock in stocks:
         print(e)
 print('Start time\t: ' + str(start))
 print('End time\t: ' + str(datetime.now()))
-fo1 = open('./static/Trend-Template-Result' + '.json', 'w')
+fo1 = open('./static/Trend-Template-Result' + '.json', 'w+')
 fo1.write(json.dumps(data))
 fo1.close()
-fo2 = open('./history/Trend-Template-Result-' + str(start.date()) + '.json', 'w')
+fo2 = open('./history/Trend-Template-Result-' + str(start.date()) + '.json', 'w+')
 fo2.write(json.dumps(data))
 fo2.close()
 
