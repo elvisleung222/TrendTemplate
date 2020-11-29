@@ -5,7 +5,6 @@ import xlsxwriter
 import json
 import os
 
-print("started.")
 stocks = [
     '0001',
     '0002',
@@ -2563,8 +2562,11 @@ stocks = [
     # '9999'
 ]
 
-result = []
+home_dir = os.environ.get('TREND_TEMPLATE_DIR')
+if home_dir is None or home_dir == '':
+    print("Error: Please set env variable TREND_TEMPLATE_DIR")
 
+result = []
 
 def create_xlsx_file(file_path: str, headers: dict, items: list):
     with xlsxwriter.Workbook(file_path) as workbook:
@@ -2672,11 +2674,11 @@ for stock in stocks:
         print(e)
 print('Start time\t: ' + str(start))
 print('End time\t: ' + str(datetime.now()))
-fo1 = open('./static/Trend-Template-Result' + '.json', 'w+')
+fo1 = open(home_dir+'static/Trend-Template-Result' + '.json', 'w+')
 fo1.write(json.dumps(data))
 print(os.path.realpath(fo1.name))
 fo1.close()
-fo2 = open('./history/Trend-Template-Result-' + str(start.date()) + '.json', 'w+')
+fo2 = open(home_dir+'history/Trend-Template-Result-' + str(start.date()) + '.json', 'w+')
 fo2.write(json.dumps(data))
 print(os.path.realpath(fo2.name))
 fo2.close()
@@ -2698,5 +2700,5 @@ headers = {
     'as_of': 'Retrieved at',
 }
 
-create_xlsx_file('./history/Trend-Template-Result-' + str(start.date()) + '.xlsx', headers, result)
+create_xlsx_file(home_dir+'history/Trend-Template-Result-' + str(start.date()) + '.xlsx', headers, result)
 print("finished.")
