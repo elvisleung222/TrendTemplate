@@ -76,5 +76,7 @@ rm -f /home/opc/TrendTemplate/history/*
 ### TODO:
 - [x] HKEX, NYSE lists are input as python option
 - [x] Datatable supports both HKEX and NYSE
-- [ ] Remove RSI_14 in rules
-- [ ] Filter fields with no data
+- [x] Remove RSI_14 in rules
+- [x] Filter fields with no data
+- [ ] Check if pivot point occurs
+- [ ] Notify when pivot point occurs
