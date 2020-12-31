@@ -1,7 +1,5 @@
-### Run time
-HKEX: 2554 stocks processed: ~10 minutes
-
-NYSE: to be tested
+### Trend Template
+Cover stocks in HKEX, NYSE and Nasdaq Exchanges. NYSE list includes stocks from Nasdaq as well. 
 
 ### Kill and Start Web Server
 ```shell script
@@ -29,7 +27,7 @@ Run a python script
 0 6 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "NYSE" >> /var/log/TrendTemplateLogNYSE
 ```
 
-Logs Location: `/var/log/pythonLog2`
+Logs Location: `/var/log/TrendTemplateLogHKEX`
 
 #### **Remark:**
 - All paths in crontab need to be absolute path.
@@ -73,3 +71,5 @@ Logs Location: `/var/log/pythonLog2`
 TODO:
 - [x] HKEX, NYSE lists are input as python option
 - [x] Datatable supports both HKEX and NYSE
+- [] Remove RSI_14 in rules
+- [] Filter fields with no data

@@ -14,11 +14,12 @@ try:
 except Exception as e:
     print("Please provide stock file name as 2nd input option")
 
-stocks_file = open(home_dir+stocks_file_name, "r")
+stocks_file = open(home_dir + stocks_file_name, "r")
 stocks_list = json.loads(stocks_file.read())
 stocks_file.close()
 
 result = []
+
 
 def create_xlsx_file(file_path: str, headers: dict, items: list):
     with xlsxwriter.Workbook(file_path) as workbook:
@@ -40,27 +41,6 @@ def codify(number):
         return number
 
 
-def rsi(stock, column="Close", period=14):
-    # Wilder's RSI
-    close = stock[column]
-    delta = close.diff()
-    up, down = delta.copy(), delta.copy()
-
-    up[up < 0] = 0
-    down[down > 0] = 0
-
-    # Calculate the exponential moving averages (EWMA)
-    roll_up = up.ewm(com=period - 1, adjust=False).mean()
-    roll_down = down.ewm(com=period - 1, adjust=False).mean().abs()
-
-    # Calculate RS based on exponential moving average (EWMA)
-    rs = roll_up / roll_down  # relative strength =  average gain/average loss
-
-    rsi = 100 - (100 / (1 + rs))
-
-    return rsi
-
-
 def validate(code):
     today = datetime.today().date()
     ticker = yf.Ticker(codify(code))
@@ -76,7 +56,6 @@ def validate(code):
         ma_200_slope = (ma_200_series[-1] - ma_200_series[1]) / len(ma_200_series)
     else:
         ma_200_slope = 1
-    rsi_14 = rsi(history)[-1]
 
     conditions = [
         close > ma_150 and close > ma_200,
@@ -86,7 +65,6 @@ def validate(code):
         close > ma_50,
         close >= 1.3 * week_low_52,
         close * 1.25 >= week_high_52,
-        rsi_14 > 70,
         abs((history.index.max().date() - today).days) <= 7  # no trading data for more than 7 days
     ]
 
@@ -105,7 +83,6 @@ def validate(code):
             'ma_150': '{:.3f}'.format(ma_150),
             'ma_200': '{:.3f}'.format(ma_200),
             'ma_200_slope': '{:.3f}'.format(ma_200_slope),
-            'rsi_14': '{:.3f}'.format(rsi_14),
             'as_of': str(history.index.max().date())
         }
 
@@ -126,10 +103,10 @@ for stock in stocks_list:
         print(e)
 print('Start time\t: ' + str(start))
 print('End time\t: ' + str(datetime.now()))
-fo1 = open(home_dir+'static/Trend-Template-Result-'+stocks_file_name + '.json', 'w+')
+fo1 = open(home_dir + 'static/Trend-Template-Result-' + stocks_file_name + '.json', 'w+')
 fo1.write(json.dumps(data))
 fo1.close()
-fo2 = open(home_dir+'history/Trend-Template-Result-'+stocks_file_name+'-' + str(start.date()) + '.json', 'w+')
+fo2 = open(home_dir + 'history/Trend-Template-Result-' + stocks_file_name + '-' + str(start.date()) + '.json', 'w+')
 fo2.write(json.dumps(data))
 fo2.close()
 
@@ -146,9 +123,9 @@ headers = {
     'ma_150': '150 MA',
     'ma_200': '200 MA',
     'ma_200_slope': 'Slope of 200 MA',
-    'rsi_14': 'RSI',
     'as_of': 'Retrieved at',
 }
 
-create_xlsx_file(home_dir+'history/Trend-Template-Result-' + stocks_file_name + '-' + str(start.date()) + '.xlsx', headers, result)
+create_xlsx_file(home_dir + 'history/Trend-Template-Result-' + stocks_file_name + '-' + str(start.date()) + '.xlsx',
+                 headers, result)
 print("finished.")
