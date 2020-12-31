@@ -3,6 +3,7 @@ Cover stocks in HKEX, NYSE and Nasdaq Exchanges. NYSE list includes stocks from 
 
 ### Kill and Start Web Server
 ```shell script
+git pull
 pkill flask
 nohup flask run --host=0.0.0.0 &
 ```
