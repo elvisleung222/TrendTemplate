@@ -34,7 +34,42 @@ Logs Location: `/var/log/pythonLog2`
 #### **Remark:**
 - All paths in crontab need to be absolute path.
 
+### Housekeeping
+#### Update HKEX stock list
+1. Download xlsx list from https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx
+2. Open xlsx file, set a filter on row 3 (Data > Filter)
+3. Set filters on
+   - Category: `Equity`
+   - Sub-Category: `Equity Securities (Main Board)`
+4. Copy the first column (Stock Code), without the last one (80737)
+5. Paste the codes to Sublime Text
+   - Remove the first zero `09999` -> `9999` for all codes
+   - Make it as a list with quotes and commas
+```python
+[
+  "0001",
+  "0002"
+]
+```
+6. Copy and paste all codes to `TrendTemplate/HKEX` (~2168 rows)
+
+#### Update NYSE/NASDAQ stock list
+1. Download *TWO* lists from http://www.eoddata.com/download.aspx
+2. Fill in data as below
+   - Exchange: `New York Stock Exchange`
+   - Format: `Spreadsheet (eg: Excel)`
+   - Period: `End of Day`
+3. Copy the first column (Symbol)
+4. Paste the codes to Sublime Text
+   - Make it as a list with quotes and commas
+```python
+[
+  "DDD",
+  "MMM"
+]
+```
+5. Copy and paste all codes to `TrendTemplate/NYSE`
 
 TODO:
-- [ ] HKEX, NYSE lists are input as python option
-- [ ] Datatable supports both HKEX and NYSE
+- [x] HKEX, NYSE lists are input as python option
+- [x] Datatable supports both HKEX and NYSE
