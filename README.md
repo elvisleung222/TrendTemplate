@@ -68,8 +68,13 @@ Logs Location: `/var/log/TrendTemplateLogHKEX`
 ```
 5. Copy and paste all codes to `TrendTemplate/NYSE`
 
-TODO:
+#### Clean up historical generated files
+```shell script
+rm -f /home/opc/TrendTemplate/history/*
+```
+
+### TODO:
 - [x] HKEX, NYSE lists are input as python option
 - [x] Datatable supports both HKEX and NYSE
-- [] Remove RSI_14 in rules
-- [] Filter fields with no data
+- [ ] Remove RSI_14 in rules
+- [ ] Filter fields with no data

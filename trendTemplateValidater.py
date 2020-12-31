@@ -52,6 +52,7 @@ def validate(code):
     ma_150 = history['Close'][-150:].mean()
     ma_200 = history['Close'][-200:].mean()
     ma_200_series = history['Close'].rolling(window=200).mean().dropna()[-20:]
+    grade = 'C'
     if len(ma_200_series) > 1:
         ma_200_slope = (ma_200_series[-1] - ma_200_series[1]) / len(ma_200_series)
     else:
@@ -64,12 +65,19 @@ def validate(code):
         ma_50 > ma_150 and ma_50 > ma_200,
         close > ma_50,
         close >= 1.3 * week_low_52,
-        close * 1.25 >= week_high_52,
+        close >= 0.75 * week_high_52,
         abs((history.index.max().date() - today).days) <= 7  # no trading data for more than 7 days
     ]
 
     if all(conditions):
         info = ticker.get_info()
+
+        # Grading (Stronger version of minimal trend template)
+        if close >= 2 * week_low_52 and close >= 0.85 * week_high_52:
+            grade = 'B'
+
+        if close >= 3 * week_low_52 and close >= 0.95 * week_high_52:
+            grade = 'A'
 
         output = {
             'code': code,
@@ -83,11 +91,12 @@ def validate(code):
             'ma_150': '{:.3f}'.format(ma_150),
             'ma_200': '{:.3f}'.format(ma_200),
             'ma_200_slope': '{:.3f}'.format(ma_200_slope),
+            'grade': grade,
             'as_of': str(history.index.max().date())
         }
-
-        result.append(output)
-        return True, output
+        if info['marketCap'] is not None and info['volume'] is not None:
+            result.append(output)
+            return True, output
     return False, None
 
 
@@ -111,6 +120,7 @@ fo2.write(json.dumps(data))
 fo2.close()
 
 # Export to excel
+# fields are same as output object
 headers = {
     'code': 'Code',
     'name': 'Name',
@@ -123,6 +133,7 @@ headers = {
     'ma_150': '150 MA',
     'ma_200': '200 MA',
     'ma_200_slope': 'Slope of 200 MA',
+    'grade': 'Grade',
     'as_of': 'Retrieved at',
 }
 
