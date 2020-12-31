@@ -80,3 +80,4 @@ rm -f /home/opc/TrendTemplate/history/*
 - [x] Filter fields with no data
 - [ ] Check if pivot point occurs
 - [ ] Notify when pivot point occurs
+- [ ] Incorporate IBD RS as a filtering rule
