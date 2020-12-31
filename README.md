@@ -51,8 +51,8 @@ Logs Location: `/var/log/TrendTemplateLogHKEX`
 ```
 6. Copy and paste all codes to `TrendTemplate/HKEX` (~2168 rows)
 
-#### Update NYSE/NASDAQ stock list
-1. Download *TWO* lists from http://www.eoddata.com/download.aspx
+#### Update NYSE / NASDAQ stock list
+1. Download *TWO* lists from http://www.eoddata.com/download.aspx (in case forget password, search email from `support@eoddata.com`)
 2. Fill in data as below
    - Exchange: `New York Stock Exchange`
    - Format: `Spreadsheet (eg: Excel)`
