@@ -3,6 +3,7 @@ Cover stocks in HKEX, NYSE and Nasdaq Exchanges. NYSE list includes stocks from 
 
 ### Kill and Start Web Server
 ```shell script
+cd /home/opc/TrendTemplate
 git pull
 pkill flask
 nohup flask run --host=0.0.0.0 &
@@ -79,6 +80,7 @@ rm -f /home/opc/TrendTemplate/history/*
 - [x] Datatable supports both HKEX and NYSE
 - [x] Remove RSI_14 in rules
 - [x] Filter fields with no data
-- [ ] Check if pivot point occurs
+- [x] Check if pivot point occurs
+- [ ] ! Add more Pivot Zone test cases to cover
 - [ ] Notify when pivot point occurs
 - [ ] Incorporate IBD RS as a filtering rule

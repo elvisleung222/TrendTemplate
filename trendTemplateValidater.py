@@ -1,9 +1,10 @@
 import yfinance as yf
-from datetime import datetime
 import re
 import xlsxwriter
 import json
 import sys
+from datetime import datetime
+from module.pivot_zone import pivot_zone_validator
 
 try:
     home_dir = sys.argv[1]
@@ -92,6 +93,7 @@ def validate(code):
             'ma_200': '{:.3f}'.format(ma_200),
             'ma_200_slope': '{:.3f}'.format(ma_200_slope),
             'grade': grade,
+            'pivot_zone': pivot_zone_validator(history),
             'as_of': str(history.index.max().date())
         }
         if info['marketCap'] is not None and info['volume'] is not None:
@@ -134,6 +136,7 @@ headers = {
     'ma_200': '200 MA',
     'ma_200_slope': 'Slope of 200 MA',
     'grade': 'Grade',
+    'pivot_zone': 'Pivot Zone',
     'as_of': 'Retrieved at',
 }
 
