@@ -81,6 +81,14 @@ rm -f /home/opc/TrendTemplate/history/*
 - [x] Remove RSI_14 in rules
 - [x] Filter fields with no data
 - [x] Check if pivot point occurs
+- [x] Add a small chart image to every row for quick reference
+- [ ] Data point: 'sector', 'longBusinessSummary'
+- [ ] Make a good route to the page, e.g. /cheetah
 - [ ] ! Add more Pivot Zone test cases to cover
-- [ ] Notify when pivot point occurs
+- [ ] Mouse over to display a summary of the stock
+- [ ] Filter: Slope of MA_200 in 1,2,3,4,5 month is greater than zero
+- [ ] Filter: Price > $10
+- [ ] Filter: volume is too low
+- [ ] Notify when some criteria occurs
 - [ ] Incorporate IBD RS as a filtering rule
+- [ ] Add earnings, financials to consideration

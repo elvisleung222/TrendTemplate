@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D1GJER2HKC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-D1GJER2HKC');
+    </script>
+    <meta charset="UTF-8">
+    <title>Trend Template</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.23/sb-1.0.1/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.23/sb-1.0.1/datatables.min.js"></script>
+</head>
+
+<!-- body style="width: 1500px;" -->
+<body>
+    <a href="../">< back</a>
+    <h3 id="title"> Loading...</h3>
+    <table id="table_id" class="display" style="width:100%" data-page-length='100'>
+        <thead>
+            <tr>
+                <th>Preview Chart</th>
+                <th>Stock</th>
+                <th>Grade</th>
+                <th>Pivot</th>
+                <th>Capital</th>
+                <th>Volume</th>
+                <th>Slope</th>
+                <th>As of</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+
+<script>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+$(document).ready( function () {
+    var market = getUrlParameter('market');
+    if (market !== null
+            && market !== undefined
+            && market !== ""
+            && (
+                    market.toUpperCase() === "US"
+                    || market.toUpperCase() === "HK"
+                )
+            )
+        market = market.toUpperCase();
+    else
+        market = "Error: Parameter \"market\": US / HK";
+    var titleEl = $("#title");
+    var dataSource = ""
+    if (market === "US") {
+        titleEl.html("NYSE & Nasdaq");
+        dataSource = "./static/Trend-Template-Result-NYSE.json";
+    }
+    else if (market === "HK") {
+        titleEl.html("HKEX");
+        dataSource = "./static/Trend-Template-Result-HKEX.json";
+    }
+
+    var t = $('#table_id').DataTable({
+        "dom": "Qfrtip",
+        "ajax": dataSource,
+        "deferRender": true,
+        "columns": [
+            {
+                "data": "code",
+                "width": "600px",
+                "render": function(data) {
+                    if (market === "US")
+                        return '<img src="http://charts.aastocks.com/servlet/Charts?stockid='+data+'.US&fontsize=11&15MinDelay=F&lang=1&vol=1&Indicator=1&indpara1=30&indpara2=50&indpara3=100&indpara4=150&indpara5=200&ref1para1=0&ref1para2=0&ref1para3=0&scheme=1&com=100&chartwidth=600&chartheight=300&period=6&type=1&" />';
+                    else if (market === "HK")
+                        return '<img src="http://charts.aastocks.com/servlet/Charts?stockid=00'+data+'.HK&fontsize=11&15MinDelay=F&lang=1&vol=1&Indicator=1&indpara1=30&indpara2=50&indpara3=100&indpara4=150&indpara5=200&ref1para1=0&ref1para2=0&ref1para3=0&scheme=1&com=100&chartwidth=600&chartheight=300&period=6&type=1&" />';
+                }
+            },
+            {
+                "targets": 0,
+                "data": function ( row, type, val, meta ) {
+                    if (market === "US")
+                        return "<a href='https://tw.tradingview.com/chart?symbol="+row.code+"' target='_blank'>"+row.code+"<br/><br/>"+row.name+"</a>";
+                    else if (market === "HK")
+                        return "<a href='https://tw.tradingview.com/chart?symbol=HKEX%3A"+parseInt(row.code, 10)+"' target='_blank'>"+row.code+"<br/><br/>"+row.name+"</a>";
+
+
+                }
+            },
+            {"data": "grade"},
+            {
+                "data": "pivot_zone",
+                "render": function(data) {
+                    return data.toString();
+                }
+            },
+            {"data": "market_capital"},
+            {"data": "volume"},
+            {"data": "ma_200_slope"},
+            {"data": "as_of"}
+        ],
+        columnDefs:[{
+            type: 'string',
+            targets: [3]
+        }],
+        searchBuilder: {
+            preDefined: {
+                criteria: [
+                    {
+                        data: 'Pivot',
+                        condition: '=',
+                        value: ["true"]
+                    },
+                    {
+                        criteria: [
+                            {
+                                data: 'Grade',
+                                condition: '=',
+                                value: ['A']
+                            },
+                            {
+                                data: 'Grade',
+                                condition: '=',
+                                value: ['B']
+                            },
+                        ],
+                        logic: 'OR'
+                    },
+                    {
+                        data: 'Capital',
+                        condition: '>=',
+                        value: [1000000000]
+                    },
+                    {
+                        data: 'Volume',
+                        condition: '>=',
+                        value: [10000000]
+                    },
+                ],
+                logic: 'AND'
+            }
+        }
+    });
+
+} );
+</script>

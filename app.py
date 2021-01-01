@@ -4,11 +4,19 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def home():
+    return render_template('home.html')
+
+
+
+@app.route('/targets')
+def trend_template():
+    return render_template('trend_template.html')
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",
-            port=int("5000"),
-            debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
+    )
