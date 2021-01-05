@@ -25,8 +25,10 @@ sudo vim /etc/crontab
 
 Run a python script
 ```shell script
-0 0 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "HKEX" >> /var/log/TrendTemplateLogHKEX
-0 6 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "NYSE" >> /var/log/TrendTemplateLogNYSE
+# 10 AM GMT; 6 PM HKT
+0 10 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "HKEX" >> /var/log/TrendTemplateLogHKEX
+# 4 AM GMT; 12 PM HKT
+0 4 * * * root /usr/bin/python3 /home/opc/TrendTemplate/trendTemplateValidater.py "/home/opc/TrendTemplate/" "NYSE" >> /var/log/TrendTemplateLogNYSE
 ```
 
 Logs Location: `/var/log/TrendTemplateLogHKEX`
@@ -92,3 +94,6 @@ rm -f /home/opc/TrendTemplate/history/*
 - [ ] Notify when some criteria occurs
 - [ ] Incorporate IBD RS as a filtering rule
 - [ ] Add earnings, financials to consideration
+- [ ] To map `cheetahlab.app` domain to the VM
+- [ ] Configure port 80 instead of 5000
+- [ ] Configure https settings 
